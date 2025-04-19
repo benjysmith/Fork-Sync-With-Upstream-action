@@ -70,6 +70,9 @@ else
     UPSTREAM_REPO_URL="https://${GITHUB_ACTOR}:${INPUT_UPSTREAM_REPO_ACCESS_TOKEN}@${INPUT_HOST_DOMAIN}/${INPUT_UPSTREAM_SYNC_REPO}.git"
 fi
 
+echo "Actor: $GITHUB_ACTOR"
+echo "Upstream repo url: ${UPSTREAM_REPO_URL}"
+
 # Fork to live action or test mode based on INPUT_TEST_MODE flag
 if [ "${INPUT_TEST_MODE}" = true ]; then
     write_out "b" "Running TESTS...\n"

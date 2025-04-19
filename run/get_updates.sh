@@ -7,8 +7,10 @@ check_for_updates() {
     write_out -1 'Checking for new commits on upstream branch.\n'
 
     # fetch commits from upstream branch within given time frame (default 1 month)
-    git fetch --quiet --shallow-since="${INPUT_SHALLOW_SINCE}" upstream "${INPUT_UPSTREAM_SYNC_BRANCH}"
+    git fetch --shallow-since="${INPUT_SHALLOW_SINCE}" upstream "${INPUT_UPSTREAM_SYNC_BRANCH}"
     COMMAND_STATUS=$?
+
+	echo "Command status: $COMMAND_STATUS"
 
     if [ "${COMMAND_STATUS}" != 0 ]; then
         # if shallow fetch fails, no new commits are avilable for sync

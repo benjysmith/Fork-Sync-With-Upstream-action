@@ -22,7 +22,7 @@ check_for_updates() {
     UPSTREAM_COMMIT_HASH=$(git rev-parse "upstream/${INPUT_UPSTREAM_SYNC_BRANCH}")
 
     # check is latest upstream hash is in target branch
-    git fetch --quiet --shallow-since="${INPUT_SHALLOW_SINCE}" origin "${INPUT_TARGET_SYNC_BRANCH}"
+    git fetch --shallow-since="${INPUT_SHALLOW_SINCE}" origin "${INPUT_TARGET_SYNC_BRANCH}"
     BRANCH_WITH_LATEST="$(git branch "${INPUT_TARGET_SYNC_BRANCH}" --contains="${UPSTREAM_COMMIT_HASH}")"
 
     if [ -z "${UPSTREAM_COMMIT_HASH}" ]; then
@@ -53,6 +53,7 @@ set_out_put() {
 }
 
 find_last_synced_commit() {
+	echo "Finding last synced commit"
     LAST_SYNCED_COMMIT=""
     TARGET_BRANCH_LOG="$(git rev-list "${INPUT_TARGET_SYNC_BRANCH}")"
     UPSTREAM_BRANCH_LOG="$(git rev-list "upstream/${INPUT_UPSTREAM_SYNC_BRANCH}")"
@@ -68,6 +69,7 @@ find_last_synced_commit() {
 
 # display new commits since last sync
 output_new_commit_list() {
+	echo "Outputting new commit list"
     if [ -z "${LAST_SYNCED_COMMIT}" ]; then
         write_out -1 "\nNo previous sync found from upstream repo. Syncing entire commit history."
         UNSHALLOW=true
